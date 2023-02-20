@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Make sure the kernel is built
-if [ ! -f "tmp/linux/arch/x86_64/boot/bzImage" ]; then
+if [ ! -f "tmp/linux/arch/x86/boot/bzImage" ]; then
    ./build_linux.sh
 fi
 
@@ -38,10 +38,10 @@ sudo mount ${FS_DEV} mnt
 sudo chown -R $USER mnt
 
 # Install and configure bootloader
-mkdir -p mnt/boot/grub2
-sudo grub2-install -v --directory=/usr/lib/grub/i386-pc --boot-directory=mnt/boot ${DISK_DEV}
+mkdir -p mnt/boot/grub
+sudo grub-install -v --directory=/usr/lib/grub/i386-pc --boot-directory=mnt/boot ${DISK_DEV}
 
-cat >mnt/boot/grub2/grub.cfg <<EOF
+cat >mnt/boot/grub/grub.cfg <<EOF
 serial
 terminal_input serial
 terminal_output serial
@@ -54,7 +54,7 @@ boot
 EOF
 
 # Copy our built kernel image
-cp linux/arch/x86_64/boot/bzImage mnt/boot/bzImage
+cp linux/arch/x86/boot/bzImage mnt/boot/bzImage
 
 # Download/Install busybox version 1.35.0
 BUSYBOX_URL="https://busybox.net/downloads/binaries/1.35.0-x86_64-linux-musl/busybox"

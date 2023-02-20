@@ -18,6 +18,6 @@ tar xvf "linux.tar.xz" --strip 1 -C linux
 
 cd linux
 # Build the kernel
-make defconfig
-make kvm_guest.config
-make -j`nproc`
+make ARCH=x86_64 defconfig
+make ARCH=x86_64 kvm_guest.config
+make ARCH=x86_64 -j`nproc`
